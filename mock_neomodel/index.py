@@ -11,7 +11,7 @@ class FakeIndex(object):
         for node in self.nodes.values():
             match = True
             for (key, value) in kwargs.iteritems():
-                if not hasattr(node, key) or (hasattr(node, key) and getattr(node, key) != value):
+                if not hasattr(node, key) or getattr(node, key) != value:
                     match = False
                     break
             if match:
@@ -22,13 +22,14 @@ class FakeIndex(object):
         for node in self.nodes.itervalues():
             match = True
             for (key, value) in kwargs.iteritems():
-                if not hasattr(node, key) or (hasattr(node, key) and getattr(node, key) != value):
+                if not hasattr(node, key) or getattr(node, key) != value:
                     match = False
                     break
             if match:
                 return node
-        raise DoesNotExist("Node with attributes %s doesn't exist in index." %
-            kwargs)
+        raise DoesNotExist(
+            "Node with attributes %s doesn't exist in index." % kwargs
+        )
 
     def register(self, node):
         self.nodes[node._id] = node

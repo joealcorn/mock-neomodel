@@ -17,7 +17,7 @@ class FakeRelation(object):
         for node in self.connections.values():
             match = True
             for (key, value) in kwargs.iteritems():
-                if not hasattr(node, key) or (hasattr(node, key) and getattr(node, key) != value):
+                if not hasattr(node, key) or getattr(node, key) != value:
                     match = False
                     break
             if match:
