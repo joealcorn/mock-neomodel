@@ -9,6 +9,9 @@ class FakeRelation(object):
     def __bool__(self):
         return len(self.connections) > 0
 
+    def __len__(self):
+        return len(self.connections)
+
     def __nonzero__(self):
         return len(self.connections) > 0
 
@@ -45,7 +48,7 @@ class FakeRelation(object):
         self.connections[new_node._id] = new_node
 
     def all(self):
-        return [n for n in self.connections.values()]
+        return self.connections.values()
 
     def single(self):
         if self.connections.values():
@@ -58,3 +61,24 @@ class FakeRelation(object):
 
     def is_connected(self, node):
         return node._id in self.connections
+
+
+class FakeCategoryRelation(FakeRelation):
+    def __init__(self, origin, nodes):
+        super(FakeCategoryRelation, self).__init__(origin)
+        self.connections = nodes
+
+    def connect(self, *args, **kwargs):
+        raise NotImplemented("Not available on category node rel")
+
+    def reconnect(self, *args, **kwargs):
+        raise NotImplemented("Not available on category node rel")
+
+    def disconnect(self, *args, **kwargs):
+        raise NotImplemented("Not available on category node rel")
+
+    def single(self, *args, **kwargs):
+        raise NotImplemented("Not available on category node rel")
+
+    def is_connected(self, *args, **kwargs):
+        raise NotImplemented("Not available on category node rel")

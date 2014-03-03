@@ -1,7 +1,12 @@
 from fudge import Fake
 from neomodel.exception import DoesNotExist
-
 from .index import FakeIndex
+from .relationship_manager import FakeCategoryRelation
+
+
+class FakeCategoryNode(object):
+    def __init__(self, index):
+        self.instance = FakeCategoryRelation(self, index.nodes)
 
 
 class FakeNode(object):
@@ -12,7 +17,6 @@ class FakeNode(object):
     def __init__(self, **kwargs):
         for key, value in kwargs.iteritems():
             setattr(self, key, value)
-            #print 'set %s : %s' % (key, value)
         self._id = self.index.last
         self.index.last += 1
         for node_id, node in self.__class__.index.nodes.iteritems():
@@ -32,3 +36,7 @@ class FakeNode(object):
 
     def cypher(self, query, params=None):
         pass
+
+    @classmethod
+    def category(cls):
+        return FakeCategoryNode(cls.index)
