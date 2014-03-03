@@ -9,10 +9,17 @@ class FakeCategoryNode(object):
         self.instance = FakeCategoryRelation(self, index.nodes)
 
 
-class FakeNode(object):
-    DoesNotExist = DoesNotExist
+class FakeNodeMeta(type):
+    def __new__(mcs, name, bases, dct):
+        inst = super(FakeNodeMeta, mcs).__new__(mcs, name, bases, dct)
+        inst.index = FakeIndex()
+        return inst
 
-    index = FakeIndex()
+FakeNodeBase = FakeNodeMeta('NodeBase', (), {})
+
+
+class FakeNode(FakeNodeBase):
+    DoesNotExist = DoesNotExist
 
     def __init__(self, **kwargs):
         for key, value in kwargs.iteritems():
