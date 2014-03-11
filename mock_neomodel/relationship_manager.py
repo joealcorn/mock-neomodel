@@ -5,6 +5,7 @@ class FakeRelation(object):
     def __init__(self, origin):
         self.origin = origin
         self.connections = {}
+        self.relation_properties = {}
 
     def __bool__(self):
         return len(self.connections) > 0
@@ -39,6 +40,8 @@ class FakeRelation(object):
 
     def connect(self, node, properties=None):
         self.connections[node._id] = node
+        if properties is not None and isinstance(properties, dict):
+            self.relation_properties[node._id] = properties
 
     def disconnect(self, node):
         del self.connections[node._id]
