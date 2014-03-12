@@ -6,6 +6,10 @@ class FakeIndex(object):
         self.nodes = {}
         self.last = 0
 
+    def _reset(self):
+        self.nodes = {}
+        self.last = 0
+
     def search(self, **kwargs):
         results = []
         for node in self.nodes.values():

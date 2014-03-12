@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mock-neomodel',
-    version='0.2',
+    version='0.4',
     url='https://github.com/buttscicles/mock-neomodel',
     description='Basic mocking of neomodel objects',
     license='MIT',
